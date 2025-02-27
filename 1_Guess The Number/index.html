@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+</head>
+<body>
+
+<script>
+    function guessNumberGame() {
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+        let chances = 10;
+
+        alert("🎯 Welcome to Guess the Number Game!\nI have picked a number between 1 and 100.\nYou have 10 chances to guess it!");
+
+        while (chances > 0) {
+            let guess = prompt(`Enter your guess (1-100). Chances left: ${chances}`);
+
+            if (guess === null) {
+                alert("❌ Game canceled!");
+                return;
+            }
+
+            guess = parseInt(guess);
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                alert("⚠️ Please enter a valid number between 1 and 100.");
+                continue;
+            }
+
+            let difference = Math.abs(secretNumber - guess);
+
+            if (guess === secretNumber) {
+                alert(`🎉 Congrats! You guessed the correct number: ${secretNumber}!`);
+                return;
+            } else if (difference <= 10) {
+                alert(guess > secretNumber 
+                    ? "🔥 Too close! Try a slightly smaller number." 
+                    : "🔥 Too close! Try a slightly greater number.");
+            } else {
+                alert(guess > secretNumber 
+                    ? "❄️ Too far! Try a smaller number." 
+                    : "❄️ Too far! Try a greater number.");
+            }
+
+            chances--;
+
+            if (chances === 0) {
+                alert(`💀 Game over! The correct number was ${secretNumber}.`);
+                return;
+            }
+        }
+    }
+
+    guessNumberGame();
+</script>
+
+</body>
+</html>
